@@ -1,0 +1,44 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('Build') {
+            steps {
+                echo 'Building...'
+                bat 'echo Building on Windows'
+
+                // Build the app using Iron Bank's Python as the base image
+                dir('C:\\Users\\lenar\\OneDrive\\Desktop\\my-python-app') {
+                    bat 'docker build -t web-app .'
+                }
+            }
+        }
+
+        stage('Test') {
+            steps {
+                echo 'Testing...'
+                bat 'echo Running tests on Windows'
+                // You can add actual test scripts here later
+            }
+        }
+
+        stage('Vulnerability Scan') {
+            steps {
+                echo 'Scanning for vulnerabilities...'
+
+                // Use Trivy to scan the Iron Bank-based container
+                bat '"C:\\Programs\\Trivy\\trivy.exe" image web-app'
+            }
+        }
+
+        stage('SonarQube Analysis') {
+            steps {
+                script {
+                    withSonarQubeEnv('SonarQube') {
+                        bat 'sonar-scanner -Dsonar.projectKey=pypeline -Dsonar.projectName=pypeline -Dsonar.projectVersion=1.0'
+                    }
+                }
+            }
+        }
+    }
+}
