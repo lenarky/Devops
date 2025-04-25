@@ -1,0 +1,12 @@
+---
+- name: Deploy web app
+  hosts: localhost
+  become: yes
+  tasks:
+    - name: Copy the analyze_trivy.py script to the remote server
+      copy:
+        src: /mnt/c/Users/username/OneDrive/Desktop/my-python-app/deployment/analyze_trivy.py
+        dest: /path/to/remote/destination/analyze_trivy.py
+
+
+
