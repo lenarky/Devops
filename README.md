@@ -117,4 +117,3 @@ prometheus.exe
 cd C:\Programs\Grafana\grafana\bin
 grafana-server.exe
 
-wsl.exe -d Ubuntu
